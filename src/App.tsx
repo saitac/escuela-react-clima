@@ -1,4 +1,4 @@
-import { Button, StyledEngineProvider, ThemeProvider } from "@mui/material"
+import { Box, Button, Grid, StyledEngineProvider, ThemeProvider } from "@mui/material"
 import styles from "./App.module.css"
 import Form from "./components/Form/Form"
 import theme from "./theme/theme"
@@ -7,28 +7,18 @@ function App() {
 
   return (
       <ThemeProvider theme={theme}>
-        <section>
+        <Box>
           <h1 className={styles.title}>Buscador de Clima</h1>
-
-          <div className={styles.container}>
-            <p>1</p>
-            <p>2</p>
-            <Form></Form>
-          </div>
-        </section>
+          <Grid container columnSpacing={{xs: 5}}>
+            <Grid item xs={6} alignItems={"center"}>
+              <Form/>
+            </Grid>
+            <Grid item xs={6} alignItems={"center"}>
+              <h1>HOLA2</h1>
+            </Grid>
+          </Grid>
+        </Box>
       </ThemeProvider>
-      
-      /*<StyledEngineProvider injectFirst>
-        <section>
-          <h1 className={styles.title}>Buscador de Clima</h1>
-
-          <div className={styles.container}>
-            <p>1</p>
-            <p>2</p>
-            <Form></Form>
-          </div>
-        </section>
-      </StyledEngineProvider>*/
   )
 }
 

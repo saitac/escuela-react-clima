@@ -1,12 +1,8 @@
 import { createTheme } from "@mui/material"
-import { red } from "@mui/material/colors";
-
-
-
 
 const theme = createTheme({
 
-    palette: {
+    /*palette: {
         primary: {
             main: '#aed581',
         },
@@ -14,7 +10,7 @@ const theme = createTheme({
         secondary: {
             main: '#ffcc80',
         },
-    },
+    },*/
     
       components: {
       // Name of the component
@@ -33,14 +29,15 @@ const theme = createTheme({
       },
 
       MuiTextField: {
+        
         defaultProps:{
-            multiline: true,
+            multiline: false,
             
         },
 
         styleOverrides:{
             root: {
-                backgroundColor: "#ffffff"
+                backgroundColor: "#ffffff",
             }
         }
       },
