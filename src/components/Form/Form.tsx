@@ -1,53 +1,48 @@
-import { Box, TextField, Select, MenuItem} from "@mui/material"
-import "./Form.module.css"
-import theme from "../../theme/theme"
-import Prueba from "./Prueba"
-//import "./Prueba1.css"
+//import "./Form.module.css"
+
+import { ClsPais } from "../../clases/clases"
+import { paises } from "../../data/countries"
 
 const Form = () => {
     return(
-
-        <Box 
-            component="form"
-            alignItems="center"
-            border='20px solid grey'
-            sx={{ border: '2px solid grey', borderRadius:2, padding: 1 }}
-            
-        >
-            
-            <TextField
-                id="city"
-                label="Ciudad"
-                variant="standard"
-
-            />
-            <Select>
-                <MenuItem value="">-- Seleccione un País --</MenuItem>
-            </Select>
-
-        </Box>
-        
-        /*<form style={{padding: 10}}>
-            <div style={{margin: 10}}>
-                <label htmlFor="city">Ciudad:</label>
-                <TextField
+        <form className="flex flex-col gap-8">
+            <div className="flex flex-col gap-8">
+                <label 
+                    className="text-white"
+                    htmlFor="city"
+                >Ciudad:</label>
+                <input
                     id="city"
-                    label="Outlined"
-                    //color="warning"
-                ></TextField>
-
+                    type="text"
+                    name="city"
+                    placeholder="Ciudad"
+                />
             </div>
-            <div>
-                
-                <Button>HOLA</Button>
-                <Button>CHAU</Button>
-            
-                <Prueba></Prueba>
-
-                
-
+            <div className="flex flex-col gap-8">
+                <label 
+                    className="text-white"
+                    htmlFor="country"
+                >País:</label>
+                <select>
+                    <option value="">-- Seleccione un País --</option>
+                    {
+                        paises.map( (p: ClsPais) => (
+                            <option
+                                key={p.codigo}
+                                value={p.codigo}
+                            >
+                                {p.nombre}
+                            </option>
+                        ) )
+                    }
+                </select>
             </div>
-        </form>*/
+            <input
+                className="text-white bg-blue-700 hover:bg-blue-800"
+                type="submit"
+                value="Consultar Clima"
+            ></input>
+        </form>
     )
 }
 

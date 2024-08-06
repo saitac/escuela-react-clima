@@ -1,24 +1,19 @@
-import { Box, Button, Grid, StyledEngineProvider, ThemeProvider } from "@mui/material"
 import styles from "./App.module.css"
 import Form from "./components/Form/Form"
-import theme from "./theme/theme"
 
 function App() {
+/*
 
+<div className="w-6/12 m-4">
+*/
   return (
-      <ThemeProvider theme={theme}>
-        <Box>
-          <h1 className={styles.title}>Buscador de Clima</h1>
-          <Grid container columnSpacing={{xs: 5}}>
-            <Grid item xs={6} alignItems={"center"}>
-              <Form/>
-            </Grid>
-            <Grid item xs={6} alignItems={"center"}>
-              <h1>HOLA2</h1>
-            </Grid>
-          </Grid>
-        </Box>
-      </ThemeProvider>
+      <section>
+        <h1 className="text-center text-white text-5xl m-20">Buscador de Clima</h1>
+        <div className="m-auto w-4/12">
+          <Form/>
+          <p className="text-white">Parrafo 2</p>
+        </div>
+      </section>
   )
 }
 

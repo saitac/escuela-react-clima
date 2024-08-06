@@ -1,7 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
 :root{
     --white: #FFF;
     --primary: #f59e08;   
 }
+*/
 
 html {
     font-size: 62.5%;
