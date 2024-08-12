@@ -1,14 +1,20 @@
 //import "./Form.module.css"
 
-import { useState } from "react"
+import { ChangeEvent, FormEvent, useState } from "react"
 import { ClsBusqueda, ClsPais } from "../../clases/clases"
 import { paises } from "../../data/countries"
+import Alert from "../Alert";
 
-const Form = () => {
+type FormProps = {
+    fetchWeather: (busqueda: ClsBusqueda) => Promise<void>
+}
+
+const Form = ( {fetchWeather}: FormProps ) => {
 
     const [busqueda, setBusqueda] = useState(new ClsBusqueda());
+    const [alert, setAlert] = useState("")
 
-    const onChangeCountryHandle = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const onChangeCountryHandle = (e: ChangeEvent<HTMLSelectElement>) => {
         
         const pindex: number = paises.findIndex((p: ClsPais) => p.codigo === e.target.value);
 
@@ -19,22 +25,28 @@ const Form = () => {
 
     }
 
-    const onChangecityHandle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onChangecityHandle = (e: ChangeEvent<HTMLInputElement>) => {
         setBusqueda({
             ...busqueda,
             ciudad: e.target.value
         })
     }
 
-    const onSubmitHandle = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmitHandle = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("OK");
+        if ( !(busqueda.ciudad && busqueda.pais.codigo) ) {
+            setAlert("Todos los datos son obligatorios!");
+            return
+        }
+        setAlert("");
+        fetchWeather(busqueda);
     }
 
     return(
         <form 
             onSubmit={(e)=>onSubmitHandle(e)}
             className="flex flex-col gap-8">
+            {alert && <Alert>{alert}</Alert>}
             <div className="flex flex-col gap-8">
                 <label 
                     className="text-white"

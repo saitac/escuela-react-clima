@@ -1,10 +1,10 @@
 import Form from "./components/Form/Form"
+import useWeather from "./hooks/useWeather"
 
 function App() {
-/*
 
-<div className="w-6/12 m-4">
-*/
+  const { fetchWeather } = useWeather()
+
   return (
       <section>
         <h1 className="text-center text-white text-5xl m-20">Buscador de Clima</h1>
@@ -12,7 +12,9 @@ function App() {
           <div
            className="basis-1/2"
           >
-            <Form/>
+            <Form
+              fetchWeather = {fetchWeather}
+            />
           </div>
           
           <p className="text-white basis-1/4">Parrafo 2</p>
