@@ -1,9 +1,10 @@
 import Form from "./components/Form/Form"
+import { WeatherDetail } from "./components/WeatherDetail/WeatherDetail";
 import useWeather from "./hooks/useWeather"
 
 function App() {
 
-  const { fetchWeather } = useWeather();
+  const { weather, fetchWeather } = useWeather();
 
   return (
       <section>
@@ -16,8 +17,9 @@ function App() {
               fetchWeather = {fetchWeather}
             />
           </div>
-          
-          <p className="text-white basis-1/4">Parrafo 2</p>
+          <WeatherDetail
+            weather={weather}
+          />
         </div>
       </section>
   )

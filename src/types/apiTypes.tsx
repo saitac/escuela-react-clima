@@ -1,3 +1,5 @@
+import {z} from "zod"
+
 
 type WeatherAPI = {
     name: string,
@@ -8,6 +10,20 @@ type WeatherAPI = {
     }
 }
 
+const Weather = z.object({
+    name: z.string(),
+    main: z.object({
+        temp: z.number(),
+        temp_max: z.number(),
+        temp_min: z.number()
+    })
+});
+
+
+type Weather = z.infer<typeof Weather>
+
 export {
-    type WeatherAPI
+    type WeatherAPI,
+    Weather
+    
 }
