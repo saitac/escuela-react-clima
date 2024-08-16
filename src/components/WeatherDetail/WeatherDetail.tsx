@@ -7,7 +7,7 @@ type WeatherDetailProps = {
 const WeatherDetail = ( {weather}: WeatherDetailProps ) => {
     return(
         <div
-            className="text-black bg-white rounded-2xl text-center px-4"
+            className="text-black bg-white rounded-2xl text-center px-4 basis-1/2"
         >
             <h2>Clima de: {weather.name}</h2>
             <p
