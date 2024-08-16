@@ -4,7 +4,7 @@ import useWeather from "./hooks/useWeather"
 
 function App() {
 
-  const { weather, fetchWeather } = useWeather();
+  const { weather, fetchWeather, hasWeatherData } = useWeather();
 
   return (
       <section>
@@ -17,9 +17,11 @@ function App() {
               fetchWeather = {fetchWeather}
             />
           </div>
-          <WeatherDetail
-            weather={weather}
-          />
+
+          {hasWeatherData && 
+            <div className="basis-1/2"><WeatherDetail weather={weather}/></div>
+          }
+          
         </div>
       </section>
   )

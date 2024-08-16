@@ -1,7 +1,7 @@
 import axios from "axios";
 import { ClsBusqueda } from "../clases/clases";
 //import { z } from "zod";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Weather } from "../types/apiTypes";
 
 //import { object, string, number, parse } from "valibot"
@@ -56,9 +56,10 @@ const useWeather = () => {
         try {
             
             const appId: string = import.meta.env.VITE_API_KEY;
-            const geoUrilatlong: string = `http://api.openweathermap.org/geo/1.0/direct?q=${busqueda.ciudad},${busqueda.pais.codigo}&appid=${appId}`;
+            const geoUrilatlong: string = `https://api.openweathermap.org/geo/1.0/direct?q=${busqueda.ciudad},${busqueda.pais.codigo}&appid=${appId}`;
             
             const {data} = await axios.get(geoUrilatlong);
+            
 
             if (data[0]) {
                 const geoUriWeather: string = `https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&appid=${appId}&units=metric`;
@@ -78,6 +79,8 @@ const useWeather = () => {
 
 
                 const {data: weatherResult} = await axios.get(geoUriWeather);
+
+
                 const result = Weather.safeParse(weatherResult);
                 if ( result.success ) {
                     setWeather(result.data);
@@ -89,19 +92,19 @@ const useWeather = () => {
                 // console.log(result.name);
 
             }
-
-            
             
         } catch (error) {
             console.log(error)            
         }
-        
-
     }
+
+    const hasWeatherData = useMemo(() => weather.name, [weather]);
+
 
     return {
         weather,
-        fetchWeather
+        fetchWeather,
+        hasWeatherData
     }
 }
 
