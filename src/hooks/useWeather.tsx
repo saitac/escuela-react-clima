@@ -40,26 +40,31 @@ import { Weather } from "../types/apiTypes";
 //     })
 // })
 
+const initialWeatherState = {
+    name: "",
+    main: {
+        temp: 0,
+        temp_max: 0,
+        temp_min: 0
+    }
+}
+
 const useWeather = () => {
 
-    const [weather, setWeather] = useState<Weather>({
-        name: "",
-        main: {
-            temp: 0,
-            temp_max: 0,
-            temp_min: 0
-        }
-    })
+    const [weather, setWeather] = useState<Weather>(initialWeatherState);
+    const [loading, setLoading] = useState(false);
+    const [notFound, setNotFound] = useState(false);
 
     const fetchWeather = async (busqueda: ClsBusqueda) => {
+        const appId: string = import.meta.env.VITE_API_KEY;
+        setLoading(true);
+        setWeather(initialWeatherState);
+        setNotFound(false);
 
         try {
-            
-            const appId: string = import.meta.env.VITE_API_KEY;
-            const geoUrilatlong: string = `https://api.openweathermap.org/geo/1.0/direct?q=${busqueda.ciudad},${busqueda.pais.codigo}&appid=${appId}`;
+            const geoUrilatlong: string = `https://api.openweathermap.org/geo/1.0/direct?q=${busqueda.ciudad},${busqueda.pais.codigo}&appid=${appId}`;  
             
             const {data} = await axios.get(geoUrilatlong);
-            
 
             if (data[0]) {
                 const geoUriWeather: string = `https://api.openweathermap.org/data/2.5/weather?lat=${data[0].lat}&lon=${data[0].lon}&appid=${appId}&units=metric`;
@@ -77,32 +82,34 @@ const useWeather = () => {
                 //     console.log("Respuesta mal formada")
                 // }
 
-
                 const {data: weatherResult} = await axios.get(geoUriWeather);
-
 
                 const result = Weather.safeParse(weatherResult);
                 if ( result.success ) {
                     setWeather(result.data);
                 }
 
-
                 // const {data: weatherResult} = await axios.get(geoUriWeather);
                 // const result = parse(WeatherSchema, weatherResult);
                 // console.log(result.name);
 
+            } else {
+                setNotFound(true);
             }
             
         } catch (error) {
             console.log(error)            
+        } finally {
+            setLoading(false);
         }
     }
 
     const hasWeatherData = useMemo(() => weather.name, [weather]);
 
-
     return {
         weather,
+        loading,
+        notFound,   
         fetchWeather,
         hasWeatherData
     }
